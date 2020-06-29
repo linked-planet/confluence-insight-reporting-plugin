@@ -1,0 +1,186 @@
+#* @vtlvariable name="i18n" type="com.atlassian.confluence.util.i18n.I18NBean" *#
+#* @vtlvariable name="action" type="com.linkedplanet.plugin.confluence.insightreporting.impl.sync.SpaceSyncAction" *#
+
+
+#requireResourcesForContext("com.linkedplanet.plugin.confluence.insight-reporting.space-sync-context")
+
+
+#* @vtlvariable name="idToNameMap" type="java.util.Map<java.lang.Integer, java.lang.String>" *#
+#macro(select $id $idToNameMap $required)
+<div class="field-group">
+    <label for="$id">$action.getI18nFieldLabel($id)
+        #if ($required)
+            <span class="aui-icon icon-required">(required)</span>
+        #end
+    </label>
+    <select class="select" id="$id" name="$id">
+        <option name='none' value='-1'>- none -</option>
+        #foreach( $iter in $idToNameMap.keySet())
+            <option name='$idToNameMap.get($iter)' value='$iter'>
+                $idToNameMap.get($iter)
+            </option>
+        #end
+    </select>
+    #if ($action.getI18nFieldDescription($id))
+        <div class="description">$action.getI18nFieldDescription($id)</div>
+    #end
+</div>
+#end
+
+#macro(input $id $css $validationAttributes $attributes)
+#* @vtlvariable name="validationAttributes" type="java.lang.String" *#
+#* @vtlvariable name="attributes" type="java.lang.String" *#
+<div class="field-group">
+    <label for="$id">$action.getI18nFieldLabel($id)
+        #if ($validationAttributes.contains("required"))
+            <span class="aui-icon icon-required">(required)</span>
+        #end
+    </label>
+    <input class="text $css" name="$id" id="$id" $validationAttributes $attributes />
+    #if ($action.getI18nFieldDescription($id))
+        <div class="description">$action.getI18nFieldDescription($id)</div>
+    #end
+</div>
+#end
+
+
+
+<html>
+<head>
+    <title>$i18n.getText("com.linkedplanet.plugin.confluence.insight-reporting.space-sync.label")</title>
+    <meta name="decorator" content="main"/>
+</head>
+
+
+<body>
+
+## @formatter:off
+    #applyDecorator("root")
+    #decoratorParam("helper" $action.helper)
+    #decoratorParam("context" "space-administration") ## name of the tab to highlight
+
+    #applyDecorator ("root")
+    #decoratorParam ("context" "spaceadminpanel")
+    #decoratorParam (
+        "selectedSpaceToolsWebItem" "com.linkedplanet.plugin.confluence.insight-reporting.space-sync-section")
+    #decoratorParam ("helper" $action.helper)
+## @formatter:on
+
+
+    #if (!${action.jiraApplicationLinkConfigured})
+    <div class="aui-message aui-message-info">
+        <p class="title"><strong>Missing Jira Application Link (primary)!</strong></p>
+        <p>A Jira application link (primary) must be configured before this feature can be used.</p>
+        <p>Go to <a href="$req.contextPath/plugins/servlet/applinks/listApplicationLinks">Application Links</a></p>
+    </div>
+    #elseif(${action.authUri})
+    <div class="aui-message aui-message-error">
+        <p class="title"><strong>Authentication needed!</strong></p>
+        <p>Connection not authenticated. Please login at: <a href="${action.authUri}" target="_blank">${action.authUri}</a></p>
+    </div>
+    #elseif (!${action.insightHealthy})
+    <div class="aui-message aui-message-error">
+        <p class="title"><strong>Cannot reach Insight!</strong></p>
+        <p>Could not retrieve data from Jira Insight. Please retry in a few minutes and contact system administrator if
+            the problem persists.</p>
+    </div>
+    #else
+
+
+    <h3>Configure</h3>
+    #* @vtlvariable name="helper" type="com.atlassian.confluence.themes.ThemeHelper" *#
+    <form class="aui long-label" method="POST" action="#">
+        #set($spaceTemplateMap=$action.getSpaceTemplates($helper.spaceKey))
+
+        <fieldset>
+            <div>
+                #select("objectSchemaId" $action.objectSchemas true)
+                #input("parentPageId" "autocomplete-page" "data-aui-validation-field pattern=\d*"
+                    "data-template={id} data-spaceKey=$helper.spaceKey")
+            </div>
+            <br/>
+            <div>
+                #input("confluenceViewAttributeName" "" "" "")
+            </div>
+            <div>
+                #select("objectTypeId1" [] true)
+                #select("templateId1" $spaceTemplateMap true)
+            </div>
+            <br/>
+            <div>
+                #select("objectTypeId2" [] false)
+                #select("templateId2" $spaceTemplateMap false)
+            </div>
+            <br/>
+            <div>
+                #select("objectTypeId3" [] false)
+                #select("templateId3" $spaceTemplateMap false)
+            </div>
+        </fieldset>
+
+        <div class="buttons-container">
+            <div class="buttons">
+                <button class="aui-button" type="reset" id="reset-button">
+                    $i18n.getText(
+                        "com.linkedplanet.plugin.confluence.insight-reporting.space-sync.reset-button.label")
+                </button>
+                <button class="aui-button aui-button-primary" id="save-button">
+                    $i18n.getText(
+                        "com.linkedplanet.plugin.confluence.insight-reporting.space-sync.save-config-button.label")
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <hr size="1"/>
+
+    <h3>Synchronize</h3>
+    <form class="aui long-label" method="POST"
+          action="$req.contextPath/spaces/plugins/insight-reporting/space-sync-run.action?key=$helper.spaceKey">
+        #form_xsrfToken() ## see https://developer.atlassian.com/server/confluence/form-token-handling/
+
+        <div class="aui-group">
+            <div class="aui-item">
+                <p>$i18n.getText("com.linkedplanet.plugin.confluence.insight-reporting.space-sync.description")</p>
+            </div>
+            <div class="aui-item"></div>
+        </div>
+
+        <fieldset>
+            <div class="field-group">
+                <div class="checkbox">
+                    <input class="checkbox" type="checkbox" name="delete" id="delete"/>
+                    <label for="delete">
+                        $i18n.getText(
+                            "com.linkedplanet.plugin.confluence.insight-reporting.space-sync.delete-checkbox.label")
+                    </label>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="buttons-container">
+            <div class="buttons">
+                <button class="aui-button aui-button-primary">
+                    $i18n.getText(
+                        "com.linkedplanet.plugin.confluence.insight-reporting.space-sync.synchronize-button.label")
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+        AJS.toInit(function () {
+            initialize('$helper.spaceKey')
+        });
+    </script>
+
+    #end ## ends #if for application link
+
+## @formatter:off
+#end ## ends #applyDecorator("root") - IntelliJ reports it as error
+#end ## ends #applyDecorator("root") - IntelliJ reports it as error
+## @formatter:on
+
+</body>
+</html>
+

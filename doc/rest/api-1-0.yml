@@ -1,0 +1,113 @@
+openapi: "3.0.0"
+
+
+info:
+  version: "1.0"
+  title: Insight Reporting API
+  description: Manage space sync configuration
+
+
+
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+
+
+security:
+  - basicAuth: []
+
+
+paths:
+
+  /space-sync/config/{space_key}:
+    get:
+      summary: Returns the space sync config for the given space
+      parameters:
+        - in: path
+          name: space_key
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Space sync config JSON response
+          content:
+            application/json:
+              example: {
+                "schemaId": 3,
+                "parentPageId": 89,
+                "objectTypeId1": 345,
+                "objectTypeId2": 64,
+                "objectTypeId3": 534,
+                "templateId1": 3454343,
+                "templateId2": 2342252,
+                "templateId3": 2354234
+              }
+        404:
+          description: No sync config exists for the given space
+
+    put:
+      summary: Save the provided config for the given space
+      parameters:
+        - in: path
+          name: space_key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                schemaId:
+                  type: integer
+                parentPageId:
+                  type: integer
+                objectTypeId1:
+                  type: integer
+                objectTypeId2:
+                  type: integer
+                objectTypeId3:
+                  type: integer
+                templateId1:
+                  type: integer
+                templateId2:
+                  type: integer
+                templateId3:
+                  type: integer
+      responses:
+        200:
+          description: Space config saved
+        400:
+          description: Invalid config body provided
+          content:
+            application/json:
+              example: ["Object Schema must be provided", "Object Type (Level 1) must be provided"]
+        404:
+          description: Space not found
+
+
+  /insight/schema/{schema_id}/object-types:
+    get:
+      summary: Returns the object types available in the schema
+      parameters:
+        - in: path
+          name: schema_id
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Insight object types JSON response
+          content:
+            application/json:
+              example: {
+                "1": "Region",
+                "2": "Country",
+                "3": "Site"
+              }
+        404:
+          description: Schema not found
