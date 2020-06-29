@@ -47,7 +47,7 @@
 
 <html>
 <head>
-    <title>$i18n.getText("com.linkedplanet.plugin.confluence.insight-reporting.space-sync.label")</title>
+    <title>$i18n.getText("com.linked-planet.plugin.confluence.insight-reporting.space-sync.label")</title>
     <meta name="decorator" content="main"/>
 </head>
 
@@ -62,7 +62,7 @@
     #applyDecorator ("root")
     #decoratorParam ("context" "spaceadminpanel")
     #decoratorParam (
-        "selectedSpaceToolsWebItem" "com.linkedplanet.plugin.confluence.insight-reporting.space-sync-section")
+        "selectedSpaceToolsWebItem" "com.linked-planet.plugin.confluence.insight-reporting.space-sync-section")
     #decoratorParam ("helper" $action.helper)
 ## @formatter:on
 
@@ -122,11 +122,11 @@
             <div class="buttons">
                 <button class="aui-button" type="reset" id="reset-button">
                     $i18n.getText(
-                        "com.linkedplanet.plugin.confluence.insight-reporting.space-sync.reset-button.label")
+                        "com.linked-planet.plugin.confluence.insight-reporting.space-sync.reset-button.label")
                 </button>
                 <button class="aui-button aui-button-primary" id="save-button">
                     $i18n.getText(
-                        "com.linkedplanet.plugin.confluence.insight-reporting.space-sync.save-config-button.label")
+                        "com.linked-planet.plugin.confluence.insight-reporting.space-sync.save-config-button.label")
                 </button>
             </div>
         </div>
@@ -141,7 +141,7 @@
 
         <div class="aui-group">
             <div class="aui-item">
-                <p>$i18n.getText("com.linkedplanet.plugin.confluence.insight-reporting.space-sync.description")</p>
+                <p>$i18n.getText("com.linked-planet.plugin.confluence.insight-reporting.space-sync.description")</p>
             </div>
             <div class="aui-item"></div>
         </div>
@@ -152,7 +152,7 @@
                     <input class="checkbox" type="checkbox" name="delete" id="delete"/>
                     <label for="delete">
                         $i18n.getText(
-                            "com.linkedplanet.plugin.confluence.insight-reporting.space-sync.delete-checkbox.label")
+                            "com.linked-planet.plugin.confluence.insight-reporting.space-sync.delete-checkbox.label")
                     </label>
                 </div>
             </div>
@@ -162,7 +162,7 @@
             <div class="buttons">
                 <button class="aui-button aui-button-primary">
                     $i18n.getText(
-                        "com.linkedplanet.plugin.confluence.insight-reporting.space-sync.synchronize-button.label")
+                        "com.linked-planet.plugin.confluence.insight-reporting.space-sync.synchronize-button.label")
                 </button>
             </div>
         </div>

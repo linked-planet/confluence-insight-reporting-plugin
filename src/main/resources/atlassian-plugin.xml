@@ -34,9 +34,9 @@
     <!-- ################################################################## -->
     <!-- INTEGRATION IN SPACE ADMIN PANEL -->
     <!-- ################################################################## -->
-    <web-item key="com.linkedplanet.plugin.confluence.insight-reporting.space-sync-section"
+    <web-item key="com.linked-planet.plugin.confluence.insight-reporting.space-sync-section"
               section="system.space.tools/addons" weight="100">
-        <label key="com.linkedplanet.plugin.confluence.insight-reporting.space-sync.label"/>
+        <label key="com.linked-planet.plugin.confluence.insight-reporting.space-sync.label"/>
         <link>/spaces/plugins/${project.artifactId}/space-sync-welcome.action?key=$generalUtil.urlEncode($helper.spaceKey)</link>
         <conditions type="AND">
             <condition class="com.atlassian.confluence.plugin.descriptor.web.conditions.SpacePermissionCondition">
@@ -49,7 +49,7 @@
     <!-- ################################################################## -->
     <!-- ACTIONS -->
     <!-- ################################################################## -->
-    <xwork key="com.linkedplanet.plugin.confluence.insight-reporting.space-sync-action">
+    <xwork key="com.linked-planet.plugin.confluence.insight-reporting.space-sync-action">
         <package name="space-links-xwork-package" extends="default" namespace="/spaces/plugins/${project.artifactId}">
             <default-interceptor-ref name="validatingStack"/>
             <action name="space-sync-welcome"
@@ -68,14 +68,14 @@
     <!-- ################################################################## -->
     <!-- ACTIVE OBJECTS -->
     <!-- ################################################################## -->
-    <ao key="com.linkedplanet.plugin.confluence.insightreporting.ao">
+    <ao key="com.linked-planet.plugin.confluence.insight-reporting.ao">
         <entity>com.linkedplanet.plugin.confluence.insightreporting.impl.sync.SpaceSyncConfig</entity>
     </ao>
 
     <!-- ################################################################## -->
     <!-- REST ENDPOINT -->
     <!-- ################################################################## -->
-    <rest key="com.linkedplanet.plugin.confluence.insightreporting.endpoint" path="/insight-reporting" version="1.0"/>
+    <rest key="com.linked-planet.plugin.confluence.insight-reporting.endpoint" path="/insight-reporting" version="1.0"/>
 
     <!-- ################################################################## -->
     <!-- WEB RESOURCES -->
@@ -83,6 +83,6 @@
     <web-resource key="sync-config">
         <dependency>com.atlassian.auiplugin:ajs</dependency>
         <resource type="download" name="space-sync-input.js" location="js/space-sync-input.js"/>
-        <context>com.linkedplanet.plugin.confluence.insight-reporting.space-sync-context</context>
+        <context>com.linked-planet.plugin.confluence.insight-reporting.space-sync-context</context>
     </web-resource>
 </atlassian-plugin>
