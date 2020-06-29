@@ -59,7 +59,7 @@
         <kotlin.version>1.3.72</kotlin.version>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
 
-        <developer.connection>scm:git:https://github.com/linked-planet/insight-reporting.git</developer.connection>
+        <developer.connection>scm:git:https://github.com/linked-planet/confluence-insight-reporting-plugin.git</developer.connection>
 
         <!-- Deployment properties intended to be set via command line -->
         <deploy.url>_</deploy.url>
