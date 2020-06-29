@@ -25,7 +25,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.linked-planet.plugin.confluence</groupId>
     <artifactId>insight-reporting</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
 
     <name>Insight Reporting for Confluence</name>
     <description>Automatic creation of Confluence pages from data stored in Mindville Insight</description>
