@@ -2,7 +2,7 @@
 #* @vtlvariable name="action" type="com.linkedplanet.plugin.confluence.insightreporting.impl.sync.SpaceSyncAction" *#
 
 
-#requireResourcesForContext("com.linkedplanet.plugin.confluence.insight-reporting.space-sync-context")
+#requireResourcesForContext("com.linked-planet.plugin.confluence.insight-reporting.space-sync-context")
 
 
 #* @vtlvariable name="idToNameMap" type="java.util.Map<java.lang.Integer, java.lang.String>" *#
