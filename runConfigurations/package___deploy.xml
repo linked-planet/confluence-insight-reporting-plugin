@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="confluence:run" type="MavenRunConfiguration" factoryName="Maven">
+  <configuration default="false" name="package &amp; deploy" type="MavenRunConfiguration" factoryName="Maven">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings" />
@@ -10,8 +10,14 @@
           </option>
           <option name="goals">
             <list>
-              <option value="confluence:run" />
-              <option value="-Datlassian.dev.mode=false" />
+              <option value="package" />
+              <option value="upm:uploadPluginFile" />
+              <option value="-Ddeploy.username=admin" />
+              <option value="-Ddeploy.password=admin" />
+              <option value="-Ddeploy.url=http://localhost:2990" />
+              <option value="-DpluginKey=com.linked-planet.plugin.confluence.insight-reporting" />
+              <option value="-DpluginFile=target/insight-reporting-1.0.3-SNAPSHOT.jar" />
+              <option value="upm:reindex" />
             </list>
           </option>
           <option name="pomFileName" value="pom.xml" />

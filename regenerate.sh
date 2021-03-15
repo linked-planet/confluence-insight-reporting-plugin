@@ -32,7 +32,7 @@ echo
 mvn archetype:generate -B -U \
     "-DarchetypeGroupId=com.linked-planet.maven.archetype" \
     "-DarchetypeArtifactId=atlassian-plugin-kotlin" \
-    "-DarchetypeVersion=3.1.2" \
+    "-DarchetypeVersion=3.1.3" \
     "-DatlassianApp=confluence" \
     "-DgroupId=com.linked-planet.plugin.confluence" \
     "-DartifactId=$ARTIFACT_ID" \
