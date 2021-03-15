@@ -7,7 +7,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.linked-planet.plugin.confluence</groupId>
     <artifactId>insight-reporting</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.1.0</version>
 
     <organization>
         <name>linked-planet GmbH</name>
